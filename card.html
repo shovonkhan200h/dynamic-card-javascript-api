@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Document</title>
+</head>
+<body>
+  <h1>post</h1>
+  <div class="posts">
+      
+  </div>
+
+
+
+
+  <script>
+     const postElements= document.querySelector(`.posts`);
+        const loadData=async()=>{
+            const posts= await fetchData(`https://jsonplaceholder.typicode.com/posts`)
+            
+            
+            posts.map((post) => {
+                const elementData = document.createElement(`div`);
+                elementData.classList.add('post')
+                elementData.innerHTML=`
+                <h4 class="post-title">${post.title}</h4>
+                <p class="post-body">${post.body}</p>
+                `;
+                postElements.appendChild(elementData);
+            });
+            
+        };
+
+    const fetchData= async (config)=>{
+        
+        try {
+            const resData = await axios.get(config);
+            return resData.data;
+        } catch (error) {
+            throw Error(`data us bit fetched`)
+        }
+    }
+
+ loadData()  
+
+  </script>
+</body>
+</html>
